@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define __USE_GNU
 #include <unistd.h>
+#include <grp.h>
 #include <string.h>
 #include <signal.h>
 #include <getopt.h>

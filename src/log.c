@@ -91,7 +91,7 @@ log_ttytofile(const char *tty)
     f = fopen(file, "w+");
     if (!f)
 	fatal("cannot create file %s to write tty name", file);
-    fprintf(f, tty);
+    fprintf(f, "%s", tty);
     fclose(f);
 }
 

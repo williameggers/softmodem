@@ -5,6 +5,7 @@
 #define SPANDSP_EXPOSE_INTERNAL_STRUCTURES
 #include <spandsp.h>
 #include "sm.h"
+#include <spandsp/version.h>
 
 enum modem_type {
     MODEM_V22BIS, MODEM_FSK_V21, MODEM_FSK_V23, MODEM_V27TER, MODEM_V17
@@ -213,10 +214,12 @@ modem_modulate(jack_sample *frames, int nframes)
 
     switch (opt.type) {
 	case MODEM_V22BIS:
-	    log_debug("modulate: go ! (training %d %d birate %d)",
+	    #if SPANDSP_RELEASE_DATE <= 20091228
+	    log_debug("modulate: go ! (training %d %d bitrate %d)",
 		((v22bis_state_t *)m.state)->tx.training,
 		((v22bis_state_t *)m.state)->tx.training_count,
 		v22bis_current_bit_rate(m.state));
+	    #endif
 	    done = v22bis_tx(m.state, m.modframes, nframes);
 	    break;
 	case MODEM_FSK_V21:
@@ -415,9 +418,13 @@ static void
 cb_status(void *data, int status)
 {
     log_info("modem cb_status: %s (%d)", signal_status_to_str(status), status);
-    if (opt.type == MODEM_V22BIS)
-	if (status == SIG_STATUS_TRAINING_SUCCEEDED)
+    #if SPANDSP_RELEASE_DATE <= 20091228
+    if (opt.type == MODEM_V22BIS) {
+	if (status == SIG_STATUS_TRAINING_SUCCEEDED) {
 	    log_info("Negociated %d bps", v22bis_current_bit_rate(m.state));
+        }
+    }
+    #endif
 }
 
 static void
