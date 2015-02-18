@@ -1,0 +1,109 @@
+SOFTMODEM(8)            OpenBSD System Manager's Manual           SOFTMODEM(8)
+
+NNAAMMEE
+     ssooffttmmooddeemm - audio software modem
+
+SSYYNNOOPPSSIISS
+     ssooffttmmooddeemm [--vvggccpp] [--nn _n_a_m_e] [--mm _m_o_d_e_m_[_,_o_p_t_i_o_n_]]
+
+DDEESSCCRRIIPPTTIIOONN
+     ssooffttmmooddeemm is an audio software modem, that connects your soundcard with a
+     tty.
+
+     It logs to a .log file in the current directory, and puts the name of the
+     tty it has opened in a .tty file.
+
+     It can be run as normal user, or as root to enable use of -d option. If
+     run as root, it will drop privileges to _sm user, and the opened tty will
+     have _sm ownership.
+
+     The options are as follows:
+
+     --vv      Increase verbosity, one for info and two for debug
+
+     --gg      Use GUI, if it was compiled in
+
+     --cc      Indicate that we are the caller modem
+
+     --pp      Jack should automaticaly connect to the system audio input /
+             output
+
+     --dd      Create a symbolic link from /dev/sm (or the name used in -n) to
+             the /dev/tty* wich was opened. If used, there will be no sm.tty
+             file created.
+
+     --nn _n_a_m_e
+             Name that softmodem will have, defaults to sm. It will be used as
+             jack client name, log file name, tty file name, and process name
+             in OpenBSD.
+
+     --mm _m_o_d_e_m_[_,_o_p_t_i_o_n_]
+             Type of modem to use. You can use v22bis, fsk_v21, fsk_v23 or
+             v27ter.  The options must be ordered like the following list and
+             separated by a coma; empty options are allowed.  The first value
+             shown here is the default one.
+
+             _v_2_2_b_i_s is a 1200 or 2400 bit per second FSK modem.  You can use
+             the following options with it :
+                   ssiiggnnaall lleevveell    negative value in dB
+                   bbiittrraattee         1200 or 2400 bps, fallbacks to 1200
+                   ffrreeqquueennccyy       in Hz
+                   gguuaarrdd ttoonnee      1800Hz, 550 or none
+
+             _f_s_k___v_2_1 and _f_s_k___v_2_3 modems are respectively 300 and 75 / 1200 bit
+             per second FSK modems.  _f_s_k___v_2_3 is asymetric, the caller receives
+             at 1200 bps.  You can use the following options with them :
+                   ssiiggnnaall lleevveell    negative value in dB
+                   ffrraammee mmooddee      sync, async or n
+
+             _v_2_7_t_e_r is a 2400 or 4800 bit per second DPSK modem.  You can use
+             the following options with it :
+                   ssiiggnnaall lleevveell    negative value in dB
+                   bbiittrraattee         2400 or 4800 bps
+                   tteepp             0 or 1, use TEP tone
+                   oollddttrraaiinn        0 or 1, use trained values on restart
+
+             _v_1_7 is a 7200 to 14400 bit per second QAM modem.  You can use the
+             following options with it :
+                   ssiiggnnaall lleevveell    negative value in dB
+                   bbiittrraattee         7200, 9600, 12000 or 14400 bps
+                   tteepp             0 or 1, use TEP tone
+                   sshhoorrttttrraaiinn      0 or 1, use short training sequence
+
+             The default is to use a v22bis modem at 1200bps using a 1800Hz
+             guard tone
+
+             The modems are restarted when SIGUSR1 is received. The sending
+             queue is flushed and the other side's modem is ordered to do the
+             same on SIGUSR2.
+
+     --hh      Show usage
+
+EEXXAAMMPPLLEESS
+     Run a v22bis modem named sm1 at 2400ps with no frequency guard
+
+           sm -n sm1 -m v22bis,,2400,,none
+
+SSEEEE AALLSSOO
+     The bin/test.sh script for examples
+
+     Project homepage http://gouloum.fr/projects/softmodem/
+
+     V21, V22bis, V23, V27ter ITU Recommendation, November 1988.  V17 ITU
+     Recommendation, February 1991.
+
+     Documentation on the implementation of the V* modems
+     http://spandsp.org/spandsp-modules.html
+
+AAUUTTHHOORRSS
+     ssooffttmmooddeemm was written by Laurent Ghigonis <laurent@gouloum.fr>
+
+CCAAVVEEAATTSS
+     For the moment the v17 modem needs to be run with tep set to one, and
+     both v17 and v27ter modems needs to be restarted at least once in order
+     to work.
+
+     Also, modems might be broken after a restart and decode incoherent bytes,
+     particulary if the restart happends on only one side.
+
+OpenBSD 4.8                    December 5, 2010                    OpenBSD 4.8

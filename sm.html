@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="resource-type" content="document"/><title>SOFTMODEM(8)</title>
+</head><body><div class="body"><table class="header" style="width:100%;" summary="header"><tr><td style="width:10%;">SOFTMODEM(8)</td>
+<td style="text-align:center;white-space:nowrap;width:80%;">OpenBSD System Manager's Manual</td>
+<td style="text-align:right;width:10%;">SOFTMODEM(8)</td>
+</tr>
+</table>
+<div class="sec-block" style="margin-top: 1.00em;"><div class="sec-head" id="x4e414d45">NAME</div>
+<div class="sec-body" style="margin-left: 5.00ex;"><span class="name">softmodem</span> &#8212; <span class="desc-body">audio software modem</span></div>
+</div>
+<div class="sec-block" style="margin-top: 1.00em;"><div class="sec-head" id="x53594e4f50534953">SYNOPSIS</div>
+<div class="sec-body" style="margin-left: 5.00ex;"><div style="clear:both;padding-left: 9.00ex;"><div style="float:left;min-width: 9.00ex;margin-left: -9.00ex;">softmodem</div>
+<div style="margin-left: 2.00ex;">&#91;<span class="opt"><span class="flag">&#45;vgcp</span></span>&#93; &#91;<span class="opt"><span class="flag">&#45;n</span> <span class="arg">name</span></span>&#93; &#91;<span class="opt"><span class="flag">&#45;m</span> <span class="arg">modem[,option]</span></span>&#93;</div>
+</div>
+</div>
+</div>
+<div class="sec-block" style="margin-top: 1.00em;"><div class="sec-head" id="x4445534352495054494f4e">DESCRIPTION</div>
+<div class="sec-body" style="margin-left: 5.00ex;"><span class="name">softmodem</span> is an audio software modem, that connects your soundcard with a tty.<div style="height: 1.00em;">&#160;</div>
+It logs to a .log file in the current directory, and puts the name of the tty it has opened in a .tty file.<div style="height: 1.00em;">&#160;</div>
+It can be run as normal user, or as root to enable use of -d option. If run as root, it will drop privileges to _sm user, and the opened tty will have _sm ownership.<div style="height: 1.00em;">&#160;</div>
+The options are as follows:<div style="clear:both;padding-left: 6.00ex;padding-top: 1.00em;"><div style="min-width: 6.00ex;margin-left: -6.00ex;float:left;margin-right: 1.00ex;"><span class="flag">&#45;v</span></div>
+<div style="margin-left: 2.00ex;">Increase verbosity, one for info and two for debug</div>
+</div>
+<div style="clear:both;padding-left: 6.00ex;padding-top: 1.00em;"><div style="min-width: 6.00ex;margin-left: -6.00ex;float:left;margin-right: 1.00ex;"><span class="flag">&#45;g</span></div>
+<div style="margin-left: 2.00ex;">Use GUI, if it was compiled in</div>
+</div>
+<div style="clear:both;padding-left: 6.00ex;padding-top: 1.00em;"><div style="min-width: 6.00ex;margin-left: -6.00ex;float:left;margin-right: 1.00ex;"><span class="flag">&#45;c</span></div>
+<div style="margin-left: 2.00ex;">Indicate that we are the caller modem</div>
+</div>
+<div style="clear:both;padding-left: 6.00ex;padding-top: 1.00em;"><div style="min-width: 6.00ex;margin-left: -6.00ex;float:left;margin-right: 1.00ex;"><span class="flag">&#45;p</span></div>
+<div style="margin-left: 2.00ex;">Jack should automaticaly connect to the system audio input / output</div>
+</div>
+<div style="clear:both;padding-left: 6.00ex;padding-top: 1.00em;"><div style="min-width: 6.00ex;margin-left: -6.00ex;float:left;margin-right: 1.00ex;"><span class="flag">&#45;d</span></div>
+<div style="margin-left: 2.00ex;">Create a symbolic link from /dev/sm (or the name used in -n) to the /dev/tty* wich was opened. If used, there will be no sm.tty file created.</div>
+</div>
+<div style="clear:both;padding-left: 6.00ex;padding-top: 1.00em;"><div style="min-width: 6.00ex;margin-left: -6.00ex;float:left;margin-right: 1.00ex;"><span class="flag">&#45;n</span> <span class="arg">name</span></div>
+<div style="margin-left: 2.00ex;">Name that softmodem will have, defaults to sm. It will be used as jack client name, log file name, tty file name, and process name in OpenBSD.</div>
+</div>
+<div style="clear:both;padding-left: 6.00ex;padding-top: 1.00em;"><div style="min-width: 6.00ex;margin-left: -6.00ex;float:left;margin-right: 1.00ex;"><span class="flag">&#45;m</span> <span class="arg">modem[,option]</span></div>
+<div style="margin-left: 2.00ex;">Type of modem to use. You can use v22bis, fsk_v21, fsk_v23 or v27ter. The options must be ordered like the following list and separated by a coma; empty options are allowed. The first value shown here is the default one.<div style="height: 1.00em;">&#160;</div>
+<span class="arg">v22bis</span> is a 1200 or 2400 bit per second FSK modem. You can use the following options with it :<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">signal level</span></div>
+<div style="margin-left: 2.00ex;">negative value in dB</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">bitrate</span></div>
+<div style="margin-left: 2.00ex;">1200 or 2400 bps, fallbacks to 1200</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">frequency</span></div>
+<div style="margin-left: 2.00ex;">in Hz</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">guard tone</span></div>
+<div style="margin-left: 2.00ex;">1800Hz, 550 or none</div>
+</div>
+<div style="height: 1.00em;">&#160;</div>
+<span class="arg">fsk_v21</span> and <span class="arg">fsk_v23</span> modems are respectively 300 and 75 / 1200 bit per second FSK modems. <span class="arg">fsk_v23</span> is asymetric, the caller receives at 1200 bps. You can use the following options with them :<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">signal level</span></div>
+<div style="margin-left: 2.00ex;">negative value in dB</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">frame mode</span></div>
+<div style="margin-left: 2.00ex;">sync, async or n</div>
+</div>
+<div style="height: 1.00em;">&#160;</div>
+<span class="arg">v27ter</span> is a 2400 or 4800 bit per second DPSK modem. You can use the following options with it :<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">signal level</span></div>
+<div style="margin-left: 2.00ex;">negative value in dB</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">bitrate</span></div>
+<div style="margin-left: 2.00ex;">2400 or 4800 bps</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">tep</span></div>
+<div style="margin-left: 2.00ex;">0 or 1, use TEP tone</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">oldtrain</span></div>
+<div style="margin-left: 2.00ex;">0 or 1, use trained values on restart</div>
+</div>
+<div style="height: 1.00em;">&#160;</div>
+<span class="arg">v17</span> is a 7200 to 14400 bit per second QAM modem. You can use the following options with it :<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">signal level</span></div>
+<div style="margin-left: 2.00ex;">negative value in dB</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">bitrate</span></div>
+<div style="margin-left: 2.00ex;">7200, 9600, 12000 or 14400 bps</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">tep</span></div>
+<div style="margin-left: 2.00ex;">0 or 1, use TEP tone</div>
+</div>
+<div style="clear:both;margin-left: 5.00ex;padding-left: 14.00ex;"><div style="min-width: 14.00ex;margin-left: -14.00ex;float:left;margin-right: 1.00ex;"><span class="symb">shorttrain</span></div>
+<div style="margin-left: 2.00ex;">0 or 1, use short training sequence</div>
+</div>
+<div style="height: 1.00em;">&#160;</div>
+The default is to use a v22bis modem at 1200bps using a 1800Hz guard tone<div style="height: 1.00em;">&#160;</div>
+The modems are restarted when SIGUSR1 is received. The sending queue is flushed and the other side's modem is ordered to do the same on SIGUSR2.</div>
+</div>
+<div style="clear:both;padding-left: 6.00ex;padding-top: 1.00em;"><div style="min-width: 6.00ex;margin-left: -6.00ex;float:left;margin-right: 1.00ex;"><span class="flag">&#45;h</span></div>
+<div style="margin-left: 2.00ex;">Show usage</div>
+</div>
+</div>
+</div>
+<div class="sec-block" style="margin-top: 1.00em;"><div class="sec-head" id="x4558414d504c4553">EXAMPLES</div>
+<div class="sec-body" style="margin-left: 5.00ex;">Run a v22bis modem named sm1 at 2400ps with no frequency guard<div style="height: 1.00em;">&#160;</div>
+<div class="lit" style="margin-left: 3.00em;">sm -n sm1 -m v22bis,,2400,,none</div>
+</div>
+</div>
+<div class="sec-block" style="margin-top: 1.00em;"><div class="sec-head" id="x534545x20x414c534f">SEE ALSO</div>
+<div class="sec-body" style="margin-left: 5.00ex;">The bin/test.sh script for examples<div style="height: 1.00em;">&#160;</div>
+Project homepage http://gouloum.fr/projects/softmodem/<div style="height: 1.00em;">&#160;</div>
+V21, V22bis, V23, V27ter ITU Recommendation, November 1988. V17 ITU Recommendation, February 1991.<div style="height: 1.00em;">&#160;</div>
+Documentation on the implementation of the V* modems http://spandsp.org/spandsp-modules.html</div>
+</div>
+<div class="sec-block" style="margin-top: 1.00em;"><div class="sec-head" id="x415554484f5253">AUTHORS</div>
+<div class="sec-body" style="margin-left: 5.00ex;"><span class="author"></span><span class="name">softmodem</span> was written by <span class="author">Laurent Ghigonis</span> &#60;laurent@gouloum.fr&#62;</div>
+</div>
+<div class="sec-block" style="margin-top: 1.00em;margin-bottom: 1.00em;"><div class="sec-head" id="x43415645415453">CAVEATS</div>
+<div class="sec-body" style="margin-left: 5.00ex;">For the moment the v17 modem needs to be run with tep set to one, and both v17 and v27ter modems needs to be restarted at least once in order to work.<div style="height: 1.00em;">&#160;</div>
+Also, modems might be broken after a restart and decode incoherent bytes, particulary if the restart happends on only one side.</div>
+</div>
+<table class="footer" style="width:100%;" summary="footer"><tr><td style="width:50%;">December 5, 2010</td>
+<td style="width:50%;text-align:right;">OpenBSD 4.8</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

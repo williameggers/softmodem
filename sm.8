@@ -1,0 +1,138 @@
+.\" Copyright (c) 2010 Laurent Ghigonis <laurent@gouloum.fr>
+.\"
+.\" Permission to use, copy, modify, and distribute this software for any
+.\" purpose with or without fee is hereby granted, provided that the above
+.\" copyright notice and this permission notice appear in all copies.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd $Mdocdate: December 05 2010 $
+.Dt SOFTMODEM 8
+.Os
+.Sh NAME
+.Nm softmodem
+.Nd audio software modem
+.Sh SYNOPSIS
+.Nm softmodem
+.Op Fl vgcp
+.Op Fl n Ar name
+.Op Fl m Ar modem[,option]
+.Sh DESCRIPTION
+.Nm
+is an audio software modem, that connects your soundcard with a tty.
+.Pp
+It logs to a .log file in the current directory, and puts the name of the tty it has opened in a .tty file.
+.Pp
+It can be run as normal user, or as root to enable use of -d option. If run as root, it will drop privileges to _sm user, and the opened tty will have _sm ownership.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl v
+Increase verbosity, one for info and two for debug
+.It Fl g
+Use GUI, if it was compiled in
+.It Fl c
+Indicate that we are the caller modem
+.It Fl p
+Jack should automaticaly connect to the system audio input / output
+.It Fl d
+Create a symbolic link from /dev/sm (or the name used in -n) to the /dev/tty* wich was opened. If used, there will be no sm.tty file created.
+.It Fl n Ar name
+Name that softmodem will have, defaults to sm. It will be used as jack client name,
+log file name, tty file name, and process name in OpenBSD.
+.It Fl m Ar modem[,option]
+Type of modem to use. You can use v22bis, fsk_v21, fsk_v23 or v27ter.
+The options must be ordered like the following list and separated by a coma;
+empty options are allowed.
+The first value shown here is the default one.
+.Pp
+.Ar v22bis
+is a 1200 or 2400 bit per second FSK modem.
+You can use the following options with it :
+.Bl -tag -width 14n -offset indent -compact
+.It Sy signal level
+negative value in dB
+.It Sy bitrate
+1200 or 2400 bps, fallbacks to 1200
+.It Sy frequency
+in Hz
+.It Sy guard tone
+1800Hz, 550 or none
+.El
+.Pp
+.Ar fsk_v21
+and
+.Ar fsk_v23
+modems are respectively 300 and 75 / 1200 bit per second FSK modems.
+.Ar fsk_v23
+is asymetric, the caller receives at 1200 bps.
+You can use the following options with them :
+.Bl -tag -width 14n -offset indent -compact
+.It Sy signal level
+negative value in dB
+.It Sy frame mode
+sync, async or n
+.El
+.Pp
+.Ar v27ter
+is a 2400 or 4800 bit per second DPSK modem.
+You can use the following options with it :
+.Bl -tag -width 14n -offset indent -compact
+.It Sy signal level
+negative value in dB
+.It Sy bitrate
+2400 or 4800 bps
+.It Sy tep
+0 or 1, use TEP tone
+.It Sy oldtrain
+0 or 1, use trained values on restart
+.El
+.Pp
+.Ar v17
+is a 7200 to 14400 bit per second QAM modem.
+You can use the following options with it :
+.Bl -tag -width 14n -offset indent -compact
+.It Sy signal level
+negative value in dB
+.It Sy bitrate
+7200, 9600, 12000 or 14400 bps
+.It Sy tep
+0 or 1, use TEP tone
+.It Sy shorttrain
+0 or 1, use short training sequence
+.El
+.Pp
+The default is to use a v22bis modem at 1200bps using a 1800Hz guard tone
+.Pp
+The modems are restarted when SIGUSR1 is received. The sending queue is flushed and the other side's modem is ordered to do the same on SIGUSR2.
+.It Fl h
+Show usage
+.El
+.Sh EXAMPLES
+Run a v22bis modem named sm1 at 2400ps with no frequency guard
+.Pp
+.Dl sm -n sm1 -m v22bis,,2400,,none
+.Sh SEE ALSO
+The bin/test.sh script for examples
+.Pp
+Project homepage http://gouloum.fr/projects/softmodem/
+.Pp
+V21, V22bis, V23, V27ter ITU Recommendation, November 1988.
+V17 ITU Recommendation, February 1991.
+.Pp
+Documentation on the implementation of the V* modems http://spandsp.org/spandsp-modules.html
+.Sh AUTHORS
+.An -nosplit
+.Nm
+was written by
+.An Laurent Ghigonis Aq laurent@gouloum.fr
+.Sh CAVEATS
+For the moment the v17 modem needs to be run with tep set to one, and both v17 and v27ter modems needs to be restarted at least once in order to work.
+.Pp
+Also, modems might be broken after a restart and decode incoherent bytes, particulary if the restart happends on only one side.

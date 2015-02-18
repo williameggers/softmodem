@@ -1,0 +1,7 @@
+do manchester like encoding, more efficient, remove sna
+
+error correction ? MNP ?
+
+do smclient that will control smd, to change modulation type, siglevel ...
+imsg ? OpenBSD specific, so need a lib ...
+

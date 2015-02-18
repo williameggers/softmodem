@@ -1,0 +1,37 @@
+dsp : dspguru.com
+    plein de liens !
+
+math software :
+ scipy
+ matlab
+ octave
+ simulink
+
+tty examples :
+    (lib/libutil/pty.c)
+    regress/sys/kern/kqueue/kqueue-pty.c
+    sbin/ldattach/ldattach.c
+    usr.bin/script/script.c
+    usr.bin/ssh/sshpty.c
+    usr.sbin/pppd/sys-bsd.c
+    xenocara/app/xterm/main.c
+
+ppp on openbsd :
+    http://www.openbsd.org/faq/faq6.html#PPP
+    http://www.openbsd-wiki.org/index.php?title=Dialup_PPP
+
+acoustic couplers
+    http://eric-ode.tripod.com/acoustic_coupler.htm
+    http://wrybread.com/WryRoad/gadgets/coupler.htm
+    http://www.hackcanada.com/canadian/phreaking/coupler.txt
+    http://www.digital-recordings.com/coupler/coupler.html
+    http://www.experiencefestival.com/a/Softmodem_-_Evolution_and_technology/id/5591321
+connect to phone line
+    http://www.araneus.fi/audsl/hybrid.html
+
+acoustic transmission
+    http://www.acousticsciences.com/articles/articulation-prerequisite.htm
+    http://www.experiencefestival.com/a/Transmission_line_-_Acoustic_transmission_lines/id/2052000
+    http://www.experiencefestival.com/a/Acoustic_impedance/id/1902580
+    http://www.experiencefestival.com/a/Transmission_line_-_Practical_types_of_electrical_transmission_line/id/2051998
+    http://www.experiencefestival.com/a/Impedance_matching_-_Sound/id/5155643

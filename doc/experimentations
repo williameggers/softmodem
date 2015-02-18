@@ -1,0 +1,22 @@
+-- over the phone, from sip phone at home --
+fsk_v21 300bps works well, even with bad sound isolation
+fsk_v23 75/1200bps doesn't work
+v22bis at 1200bps works unreliably, the connection goes up->negociated->...5s...->down
+    it works better with guardtone=none
+    when i improve the physical sound isolation, the connection goes longer
+    the volume (signal level ?) is critical too
+v22bis at 2400bps suffers the same problems, and the connection seems even shorter
+
+some phones have echo cancelation that can interfere, particulary if the volume is high
+
+-- directly connect to tty --
+when the traffic is so low that it's a nonsense to run ppp over it, for example fsk_v21, try to get a shell directly by using the modem's tty.
+openbsd server : run getty(8) by changing the ttyp* line in /etc/ttys
+    ttypa   "/usr/libexec/getty std.600"    vt100   on secure
+    and kill -HUP 1
+linux server : run getty with
+    sudo /sbin/getty 300 /dev/pts/40 vt100
+openbsd client (ttyp9) : connect to the tty with cu(1)
+    cu -l ttyp9
+of course it is very dangerous because corrupted commands could be executed, the only checks are the parity/framing, using async parity / start-stop bits.
+need to find a way to avoid printing caracters that blocks the receiving terminal
