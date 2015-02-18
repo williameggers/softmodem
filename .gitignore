@@ -1,0 +1,4 @@
+*.o
+bin/sm
+*.tty
+*.log
