@@ -4,9 +4,9 @@ Its known to work with jack >= 0.116.1 (http://jackaudio.org/)
 and spandsp >= 0.0.6pre17 (http://soft-switch.org/),
 on OpenBSD, Debian and Ubuntu.
 
-To compil, run "make", that will create bin/sm.
+To compile, run "make", that will create bin/sm.
 
-You can use "make withgui" to compil the modem with monitor gui from spandsp.
+You can use "make withgui" to compile the modem with monitor gui from spandsp.
 You will need fltk (and fltk-devel), Fl_Cartesian and Fl_Audio_Meter.
 Fl_Cartesian and Fl_Audio_Meter can be downloaded from
 http://www.soft-switch.org/downloads.
